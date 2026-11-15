@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="description" content="Hemen's student portfolio — learning web development and PHP/MySQL database concepts in Gondar, Ethiopia." />
+  <title>Hemen | Student Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0b1020; --panel: #111a2d; --panel2: #151f35;
+      --text: #f4f6ff; --muted: #a4aec5; --line: rgba(255,255,255,.10);
+      --accent: #9b8cff; --accent2: #59d6c5; --pink: #ff9acb;
+      --shadow: 0 22px 70px rgba(0,0,0,.32); --radius: 24px;
+    }
+    * { box-sizing: border-box; scroll-behavior: smooth; }
+    body { margin: 0; background: radial-gradient(circle at 85% 5%, rgba(155,140,255,.14), transparent 28%), radial-gradient(circle at 8% 35%, rgba(89,214,197,.08), transparent 25%), var(--bg); color: var(--text); font-family: 'DM Sans', sans-serif; line-height: 1.65; }
+    a { color: inherit; text-decoration: none; }
+    .container { width: min(1120px, calc(100% - 44px)); margin: auto; }
+    header { position: sticky; top: 0; z-index: 20; backdrop-filter: blur(18px); background: rgba(11,16,32,.78); border-bottom: 1px solid var(--line); }
+    .nav { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+    .brand { font: 700 1.35rem 'Space Grotesk', sans-serif; letter-spacing: -.06em; }
+    .brand span { color: var(--accent); }
+    nav { display: flex; align-items: center; gap: 27px; }
+    nav a { color: var(--muted); font-size: .92rem; transition: .2s; }
+    nav a:hover, nav a.active { color: var(--text); }
+    .nav-cta, .btn { display: inline-flex; align-items: center; justify-content: center; gap: 9px; border: 1px solid rgba(155,140,255,.5); background: linear-gradient(135deg, rgba(155,140,255,.2), rgba(89,214,197,.10)); padding: 11px 18px; border-radius: 999px; font-weight: 700; font-size: .9rem; transition: transform .2s, border-color .2s; }
+    .nav-cta:hover, .btn:hover { transform: translateY(-3px); border-color: var(--accent2); }
+    .menu-btn { display: none; border: 1px solid var(--line); background: var(--panel); color: var(--text); border-radius: 12px; padding: 8px 11px; font-size: 1.2rem; }
+    .hero { min-height: 690px; display: grid; grid-template-columns: 1.1fr .9fr; align-items: center; gap: 70px; padding: 88px 0 100px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 10px; color: var(--accent2); text-transform: uppercase; letter-spacing: .16em; font-size: .74rem; font-weight: 700; }
+    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent2); box-shadow: 0 0 16px var(--accent2); }
+    h1,h2,h3 { font-family: 'Space Grotesk', sans-serif; line-height: 1.12; letter-spacing: -.045em; }
+    h1 { font-size: clamp(3.4rem, 7vw, 6.1rem); margin: 20px 0 18px; }
+    h1 .gradient { background: linear-gradient(100deg, #c3baff, #74e5d4 75%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .hero-copy { color: var(--muted); max-width: 570px; font-size: 1.08rem; }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 13px; margin-top: 30px; }
+    .btn.primary { color: #101426; background: linear-gradient(120deg, #b9adff, #75e3d2); border: 0; }
+    .btn.secondary { border-color: var(--line); background: rgba(255,255,255,.035); }
+    .location { margin-top: 26px; color: var(--muted); font-size: .9rem; display: flex; align-items: center; gap: 9px; }
+    .portrait-wrap { position: relative; width: min(100%, 430px); aspect-ratio: 1; justify-self: center; display: grid; place-items: center; }
+    .portrait-glow { position: absolute; inset: 12%; background: linear-gradient(135deg, rgba(115,100,255,.75), rgba(89,214,197,.45)); filter: blur(58px); opacity: .7; border-radius: 50%; }
+    .portrait-wrap::before, .portrait-wrap::after { content: ""; position: absolute; border-radius: 50%; pointer-events: none; }
+    .portrait-wrap::before { inset: 3%; border: 1px solid rgba(155,140,255,.22); box-shadow: 0 0 45px rgba(116,91,255,.12), inset 0 0 45px rgba(116,91,255,.08); }
+    .portrait-wrap::after { inset: 12%; border: 2px solid rgba(155,140,255,.38); }
+    .portrait-frame { position: relative; z-index: 1; width: 69%; aspect-ratio: 1; padding: 8px; border-radius: 50%; background: linear-gradient(135deg, #f7f5ff, #9b8cff 48%, #59d6c5); box-shadow: 0 0 0 5px rgba(255,255,255,.06), 0 0 35px rgba(155,140,255,.55); }
+    .portrait-frame img { display: block; width: 100%; height: 100%; aspect-ratio: 1; object-fit: cover; object-position: center 25%; border-radius: 50%; }
+    .orbit-dot { position: absolute; z-index: 2; width: 9px; height: 9px; border-radius: 50%; background: #c8c0ff; box-shadow: 0 0 16px #9b8cff; }
+    .orbit-dot.one { top: 18%; left: 12%; } .orbit-dot.two { right: 8%; bottom: 27%; width: 6px; height: 6px; background: var(--accent2); }
+    .portrait-label { position: absolute; z-index: 3; right: -3%; top: 23%; padding: 11px 15px; border: 1px solid rgba(155,140,255,.32); border-radius: 13px; background: rgba(17,26,45,.88); color: var(--text); font-size: .78rem; font-weight: 700; box-shadow: var(--shadow); }
+    .floating-tag { position: absolute; z-index: 3; left: -1%; bottom: 20%; background: #17233a; border: 1px solid var(--line); border-radius: 14px; padding: 10px 14px; box-shadow: var(--shadow); font-size: .78rem; }
+    .floating-tag strong { display: block; color: var(--accent2); font-size: .86rem; }
+    .floating-tag { position: absolute; left: -35px; bottom: 35px; background: #17233a; border: 1px solid var(--line); border-radius: 16px; padding: 12px 16px; box-shadow: var(--shadow); font-size: .85rem; }
+    .floating-tag strong { display: block; color: var(--accent2); font-size: .95rem; }
+    section { padding: 92px 0; }
+    .section-head { max-width: 650px; margin-bottom: 38px; }
+    .section-kicker { color: var(--accent); text-transform: uppercase; letter-spacing: .16em; font-weight: 700; font-size: .75rem; }
+    h2 { font-size: clamp(2.25rem, 4vw, 3.45rem); margin: 10px 0 13px; }
+    .section-head p, .muted { color: var(--muted); }
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 22px; }
+    .card { background: linear-gradient(145deg, rgba(21,31,53,.94), rgba(15,23,40,.94)); border: 1px solid var(--line); border-radius: var(--radius); padding: 28px; box-shadow: 0 14px 45px rgba(0,0,0,.12); }
+    .card h3 { font-size: 1.3rem; margin: 0 0 12px; }
+    .card p { color: var(--muted); margin: 0; }
+    .facts { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
+    .fact { background: rgba(255,255,255,.035); border: 1px solid var(--line); border-radius: 15px; padding: 15px; }
+    .fact small { color: var(--muted); display: block; font-size: .75rem; }
+    .fact strong { font-size: .95rem; }
+    .skill-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 16px; }
+    .skill { min-height: 145px; display: flex; flex-direction: column; justify-content: space-between; }
+    .skill-icon { width: 43px; height: 43px; display: grid; place-items: center; border-radius: 13px; background: rgba(155,140,255,.13); color: #c3baff; font-weight: 800; font-family: 'Space Grotesk'; }
+    .skill h3 { font-size: 1.05rem; margin: 18px 0 4px; }
+    .skill small { color: var(--muted); }
+    .project-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 20px; }
+    .project-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 23px; }
+    .project-number { color: var(--accent2); font: 700 1rem 'Space Grotesk'; }
+    .project-mark { width: 48px; height: 48px; border-radius: 15px; display: grid; place-items: center; background: rgba(89,214,197,.12); color: var(--accent2); font-size: 1.3rem; }
+    .tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 19px; }
+    .tag { font-size: .75rem; color: #c8c2ff; background: rgba(155,140,255,.12); border: 1px solid rgba(155,140,255,.2); padding: 5px 10px; border-radius: 999px; }
+    .contact-box { display: block; background: linear-gradient(145deg, rgba(9,13,30,.96), rgba(19,24,55,.96)); border: 1px solid rgba(155,140,255,.22); border-radius: 30px; padding: clamp(25px, 5vw, 58px); box-shadow: var(--shadow); }
+    .contact-box h2 { margin: 8px 0 13px; font-size: clamp(2.4rem, 5vw, 4.2rem); }
+    .contact-box h2 span { display: block; background: linear-gradient(100deg, #9b8cff, #59d6c5); -webkit-background-clip: text; background-clip: text; color: transparent; }
+    .contact-box p { color: var(--muted); max-width: 600px; }
+    .contact-email { display: flex; align-items: center; gap: 16px; max-width: 650px; margin: 30px 0 36px; padding: 19px 22px; background: rgba(255,255,255,.025); border: 1px solid rgba(155,140,255,.22); border-radius: 18px; overflow-wrap: anywhere; transition: .2s; }
+    .contact-email:hover { border-color: rgba(89,214,197,.55); transform: translateY(-2px); }
+    .email-icon { width: 42px; height: 42px; flex: 0 0 42px; display: grid; place-items: center; border-radius: 12px; color: #c7c0ff; background: rgba(155,140,255,.13); font-size: 1.25rem; }
+    .contact-email small { display: block; color: var(--muted); margin-bottom: 4px; letter-spacing: .12em; font-size: .68rem; }
+    .contact-email strong { font-size: 1rem; }
+    .contact-email .email-arrow { margin-left: auto; color: var(--accent2); font-size: 1.35rem; }
+    .contact-form { border-top: 1px solid var(--line); padding-top: 30px; display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .field { display: flex; flex-direction: column; gap: 8px; color: #e9eaff; font-size: .88rem; font-weight: 700; }
+    .field.full { grid-column: 1 / -1; }
+    .field input, .field textarea { width: 100%; border: 1px solid rgba(190,190,255,.24); border-radius: 13px; outline: none; background: rgba(255,255,255,.045); color: var(--text); padding: 15px 16px; font: inherit; font-weight: 400; transition: border-color .2s, box-shadow .2s; }
+    .field input:focus, .field textarea:focus { border-color: var(--accent); box-shadow: 0 0 0 3px rgba(155,140,255,.12); }
+    .field textarea { min-height: 125px; resize: vertical; }
+    .form-submit { grid-column: 1 / -1; justify-self: start; cursor: pointer; }
+    .form-note { grid-column: 1 / -1; margin: -5px 0 0 !important; font-size: .78rem; }
+    footer { border-top: 1px solid var(--line); padding: 25px 0; color: var(--muted); font-size: .85rem; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+    .reveal { opacity: 0; transform: translateY(22px); transition: .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    @media (max-width: 800px) {
+      nav { display: none; position: absolute; top: 76px; left: 0; right: 0; padding: 20px 24px 24px; background: #0e1629; border-bottom: 1px solid var(--line); flex-direction: column; align-items: flex-start; gap: 17px; }
+      nav.open { display: flex; } .menu-btn { display: inline-block; } .nav-cta { display: none; }
+      .hero { grid-template-columns: 1fr; gap: 55px; padding-top: 65px; text-align: center; }
+      .hero-copy { margin: auto; } .hero-actions, .location { justify-content: center; }
+      .portrait-wrap { width: min(86%, 350px); }
+      .about-grid { grid-template-columns: 1fr; }
+      .skill-grid { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 520px) {
+      .container { width: min(100% - 30px, 1120px); }
+      section { padding: 68px 0; } .hero { min-height: auto; }
+      h1 { font-size: 3.45rem; } .project-grid { grid-template-columns: 1fr; }
+      .card { padding: 22px; } .contact-box { padding: 25px; }
+      .floating-tag { left: -18px; bottom: 20px; }
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div class="container nav">
+    <a class="brand" href="#home">hemen<span>.</span></a>
+    <nav id="navigation">
+      <a href="#home" class="active">Home</a><a href="#about">About</a><a href="#skills">Skills</a><a href="#projects">Projects</a><a href="#contact">Contact</a>
+    </nav>
+    <a class="nav-cta" href="#contact">Let's connect ↗</a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open navigation" aria-expanded="false">☰</button>
+  </div>
+</header>
+
+<main>
+  <section class="container hero" id="home">
+    <div class="reveal">
+      <div class="eyebrow"><span class="dot"></span> Student • Future creator</div>
+      <h1>Hello, I'm<br><span class="gradient">Hemen.</span></h1>
+      <p class="hero-copy">A curious Grade 12 student from Gondar, Ethiopia, building my knowledge in technology and web development. I believe every big achievement starts with a small step.</p>
+      <div class="hero-actions">
+        <a class="btn primary" href="#projects">Explore my work <span>↗</span></a>
+        <a class="btn secondary" href="#contact">Get in touch</a>
+      </div>
+      <div class="location">⌖ <span>Gondar, Ethiopia</span><span>•</span><span>Preparing for the Grade 12 exit exam</span></div>
+    </div>
+    <div class="portrait-wrap reveal">
+      <div class="portrait-glow"></div>
+      <div class="portrait-frame"><img src="assets/hemen-profile.jpg" alt="Hemen's profile picture"></div>
+      <span class="orbit-dot one"></span><span class="orbit-dot two"></span>
+      <div class="portrait-label">✦ Always learning</div>
+      <div class="floating-tag"><strong>Future web creator</strong>Curiosity into creativity</div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="container">
+      <div class="section-head reveal"><div class="section-kicker">01 / About me</div><h2>A little about my journey.</h2><p>I'm at the beginning of my journey, staying curious, learning new things, and working toward a bright future.</p></div>
+      <div class="about-grid">
+        <article class="card reveal"><h3>Who I am</h3><p>My name is Hemen. I am a Grade 12 student living in Gondar, Ethiopia, and I am currently preparing for the national exit examination. I enjoy learning, exploring ideas, and discovering how technology can solve everyday problems.</p></article>
+        <article class="card reveal"><h3>My current focus</h3><p>I am learning the foundations of web development and database concepts. My goal is to keep improving step by step, practice what I learn, and create useful digital projects.</p>
+          <div class="facts"><div class="fact"><small>Based in</small><strong>Gondar, Ethiopia</strong></div><div class="fact"><small>Current level</small><strong>Grade 12 student</strong></div></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="container">
+      <div class="section-head reveal"><div class="section-kicker">02 / Skills</div><h2>Things I'm learning.</h2><p>These are learning areas I am exploring and practicing. I will keep adding to this list as I grow.</p></div>
+      <div class="skill-grid">
+        <article class="card skill reveal"><div class="skill-icon">HTML</div><div><h3>HTML</h3><small>Building page structure</small></div></article>
+        <article class="card skill reveal"><div class="skill-icon">CSS</div><div><h3>CSS</h3><small>Layouts and styling</small></div></article>
+        <article class="card skill reveal"><div class="skill-icon">PHP</div><div><h3>PHP</h3><small>Server-side basics</small></div></article>
+        <article class="card skill reveal"><div class="skill-icon">SQL</div><div><h3>MySQL</h3><small>Database fundamentals</small></div></article>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="container">
+      <div class="section-head reveal"><div class="section-kicker">03 / Projects</div><h2>Learning through projects.</h2><p>A small collection of practice work and topics I am developing my understanding of.</p></div>
+      <div class="project-grid">
+        <article class="card reveal">
+          <div class="project-top"><span class="project-number">PROJECT 01</span><span class="project-mark">▤</span></div>
+          <h3>PHP & MySQL Database Study</h3><p>A learning project based on my database notes. It covers connecting PHP to MySQL, creating databases and tables, and understanding how information is stored.</p>
+          <div class="tags"><span class="tag">PHP</span><span class="tag">MySQL</span><span class="tag">Database</span></div>
+        </article>
+        <article class="card reveal">
+          <div class="project-top"><span class="project-number">PROJECT 02</span><span class="project-mark">⌘</span></div>
+          <h3>CRUD Concepts Practice</h3><p>Practicing the basic database operations: adding records, viewing information, updating existing data, and deleting selected records.</p>
+          <div class="tags"><span class="tag">SQL</span><span class="tag">INSERT</span><span class="tag">SELECT</span><span class="tag">UPDATE</span><span class="tag">DELETE</span></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="container">
+      <div class="contact-box reveal">
+        <div class="section-kicker">04 / CONTACT</div>
+        <h2>Have a good idea?<span>Let's connect.</span></h2>
+        <p>I'd love to hear from you. Send me a message and let's start a conversation.</p>
+        <a class="contact-email" href="mailto:hemenh@gmail.com">
+          <span class="email-icon">✉</span>
+          <span><small>EMAIL ME AT</small><strong>hemenh@gmail.com</strong></span>
+          <span class="email-arrow">↗</span>
+        </a>
+        <form class="contact-form" id="contactForm">
+          <label class="field">Your name
+            <input type="text" name="name" placeholder="Enter your name" required>
+          </label>
+          <label class="field">Your email
+            <input type="email" name="email" placeholder="you@example.com" required>
+          </label>
+          <label class="field full">Your message
+            <textarea name="message" placeholder="Write your message..." required></textarea>
+          </label>
+          <button class="btn primary form-submit" type="submit">Send message ↗</button>
+          <p class="form-note muted">Your email app will open with your message ready to send. The form is a front-end version; PHP/MySQL storage can be connected when the database is configured.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="container footer-inner"><span>© <span id="year"></span> Hemen. Made with curiosity.</span><span>Gondar, Ethiopia ✦</span></div></footer>
+<script>
+  const menuBtn = document.getElementById('menuBtn');
+  const nav = document.getElementById('navigation');
+  menuBtn.addEventListener('click', () => {
+    const opened = nav.classList.toggle('open');
+    menuBtn.setAttribute('aria-expanded', String(opened));
+    menuBtn.textContent = opened ? '×' : '☰';
+  });
+  nav.querySelectorAll('a').forEach(link => link.addEventListener('click', () => {
+    nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded', 'false'); menuBtn.textContent = '☰';
+  }));
+  document.getElementById('contactForm').addEventListener('submit', (event) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const data = new FormData(form);
+    const subject = encodeURIComponent('Portfolio message from ' + data.get('name'));
+    const body = encodeURIComponent('Name: ' + data.get('name') + '\\nEmail: ' + data.get('email') + '\\n\\n' + data.get('message'));
+    window.location.href = 'mailto:hemenh@gmail.com?subject=' + subject + '&body=' + body;
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => { if (entry.isIntersecting) { entry.target.classList.add('visible'); observer.unobserve(entry.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+  const sections = [...document.querySelectorAll('main section[id]')];
+  const navLinks = [...nav.querySelectorAll('a')];
+  window.addEventListener('scroll', () => {
+    let current = 'home';
+    sections.forEach(section => { if (window.scrollY >= section.offsetTop - 150) current = section.id; });
+    navLinks.forEach(link => link.classList.toggle('active', link.getAttribute('href') === '#' + current));
+  });
+</script>
+</body>
+</html>
